@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ book_name }} {{ chapter_num }}
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <div class="shell">
+        <div class="reading">
+
+            <div class="chapter-head">
+
+                <p class="eyebrow" style="width:100%;margin-bottom:8px">
+                    {{ book_name }} · Chapter {{ chapter_num }}
+                </p>
+
+                <h1>{{ book_name }} {{ chapter_num }}</h1>
+
+                <span class="sub">
+                    {{ verses|length }} verses · King James Version
+                </span>
+
+                <div class="chapter-tools">
+
+                    <label class="label"
+                           for="ch"
+                           style="position:absolute;left:-9999px">
+                        Chapter
+                    </label>
+
+                    <select class="select"
+                            id="ch"
+                            onchange="location = this.value;">
+
+                        {% for chapter in chapters %}
+                            <option
+                                value="{{ url_for(
+                                    'chapter',
+                                    book_name=book_name,
+                                    chapter_num=chapter
+                                ) }}"
+                                {% if chapter|int == chapter_num %}
+                                    selected
+                                {% endif %}
+                            >
+                                Chapter {{ chapter }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+            </div>
+
+
+            <ol class="verses">
+
+                {% for verse, text in verses.items() %}
+
+                    <li class="verse" id="v{{ verse }}">
+
+                        <span class="vnum">
+                            {{ verse }}
+                        </span>
+
+                        <span class="vtext">
+                            {{ text }}
+                        </span>
+
+                        <span class="vaction">
+                            <button
+                                class="btn"
+                                type="button"
+                                aria-label="Add a note to verse {{ verse }}">
+                                +
+                            </button>
+                        </span>
+
+                    </li>
+
+                {% endfor %}
+
+            </ol>
+
+
+            <nav class="pager" aria-label="Chapter navigation">
+
+                {% if chapter_num > 1 %}
+
+                    <a class="btn btn--quiet"
+                       href="{{ url_for(
+                           'chapter',
+                           book_name=book_name,
+                           chapter_num=chapter_num - 1
+                       ) }}">
+                        ← {{ book_name }} {{ chapter_num - 1 }}
+                    </a>
+
+                {% endif %}
+
+
+                <span class="ref">
+                    {{ book_name }} {{ chapter_num }} of {{ chapters|length }}
+                </span>
+
+
+                {% if chapter_num < chapters|length %}
+
+                    <a class="btn btn--quiet"
+                       href="{{ url_for(
+                           'chapter',
+                           book_name=book_name,
+                           chapter_num=chapter_num + 1
+                       ) }}">
+                        {{ book_name }} {{ chapter_num + 1 }} →
+                    </a>
+
+                {% endif %}
+
+            </nav>
+
+
+            <p class="meta" style="margin-top:18px">
+                <a href="{{ url_for('index') }}">All books</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

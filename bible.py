@@ -7,8 +7,7 @@ def open_bible_json():
 
 bible = open_bible_json()
 
-def fetch_passage(book_name, chapter_num=1, verse_num=1):
-
+def fetch_passage(book_name, chapter_num, verse_num):
     # return bible[book_name][str(chapter_num)][str(verse_num)]
     for book, chapters in bible.items():
         for chapter, verses in chapters.items():
@@ -18,6 +17,5 @@ def fetch_passage(book_name, chapter_num=1, verse_num=1):
                     and verse == str(verse_num)):
                     return text
 
-print(fetch_passage("Psalm", 119))
 
 
