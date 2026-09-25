@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Read
+{% endblock %}
+
+{% block main %}
+
+    <div id="main-books">
+        <div class="shell">
+          <p class="eyebrow">King James Version</p>
+          <h1 class="display" style="margin-top:10px">Read</h1>
+          <p class="lede" style="margin:12px 0 26px">Choose a book, then a chapter. Search any word or phrase in the text, and keep private notes on the verses that matter to you.</p>
+
+          <form class="search" role="search" action="#p-05" method="get" style="max-width:540px">
+            <label class="label" for="q-books" style="position:absolute;left:-9999px">Search the Bible</label>
+            <input class="input" id="q-books" name="q" type="search" placeholder="Search a word or phrase — e.g. “still small voice”" readonly>
+            <button class="btn btn--primary" type="submit">Search</button>
+          </form>
+
+          <div class="bookgroup">
+            <h2>Old Testament</h2>
+            <div class="bookgrid">
+              <a class="book" href="#p-02">Genesis <span class="count">50</span></a>
+              <a class="book" href="#p-02">Exodus <span class="count">40</span></a>
+              <a class="book" href="#p-02">Leviticus <span class="count">27</span></a>
+              <a class="book" href="#p-02">Numbers <span class="count">36</span></a>
+              <a class="book" href="#p-02">Deuteronomy <span class="count">34</span></a>
+              <a class="book" href="#p-02">Joshua <span class="count">24</span></a>
+              <a class="book" href="#p-02">Judges <span class="count">21</span></a>
+              <a class="book" href="#p-02">Ruth <span class="count">4</span></a>
+              <a class="book" href="#p-02">1 Samuel <span class="count">31</span></a>
+              <a class="book" href="#p-02">2 Samuel <span class="count">24</span></a>
+              <a class="book" href="#p-02">1 Kings <span class="count">22</span></a>
+              <a class="book" href="#p-02">2 Kings <span class="count">25</span></a>
+              <a class="book" href="#p-02">1 Chronicles <span class="count">29</span></a>
+              <a class="book" href="#p-02">2 Chronicles <span class="count">36</span></a>
+              <a class="book" href="#p-02">Ezra <span class="count">10</span></a>
+              <a class="book" href="#p-02">Nehemiah <span class="count">13</span></a>
+              <a class="book" href="#p-02">Esther <span class="count">10</span></a>
+              <a class="book" href="#p-02">Job <span class="count">42</span></a>
+              <a class="book" href="#p-02">Psalms <span class="count">150</span></a>
+              <a class="book" href="#p-02">Proverbs <span class="count">31</span></a>
+              <a class="book" href="#p-02">Ecclesiastes <span class="count">12</span></a>
+              <a class="book" href="#p-02">Song of Solomon <span class="count">8</span></a>
+              <a class="book" href="#p-02">Isaiah <span class="count">66</span></a>
+              <a class="book" href="#p-02">Jeremiah <span class="count">52</span></a>
+              <a class="book" href="#p-02">Lamentations <span class="count">5</span></a>
+              <a class="book" href="#p-02">Ezekiel <span class="count">48</span></a>
+              <a class="book" href="#p-02">Daniel <span class="count">12</span></a>
+              <a class="book" href="#p-02">Hosea <span class="count">14</span></a>
+              <a class="book" href="#p-02">Joel <span class="count">3</span></a>
+              <a class="book" href="#p-02">Amos <span class="count">9</span></a>
+              <a class="book" href="#p-02">Obadiah <span class="count">1</span></a>
+              <a class="book" href="#p-02">Jonah <span class="count">4</span></a>
+              <a class="book" href="#p-02">Micah <span class="count">7</span></a>
+              <a class="book" href="#p-02">Nahum <span class="count">3</span></a>
+              <a class="book" href="#p-02">Habakkuk <span class="count">3</span></a>
+              <a class="book" href="#p-02">Zephaniah <span class="count">3</span></a>
+              <a class="book" href="#p-02">Haggai <span class="count">2</span></a>
+              <a class="book" href="#p-02">Zechariah <span class="count">14</span></a>
+              <a class="book" href="#p-02">Malachi <span class="count">4</span></a>
+            </div>
+          </div>
+
+          <div class="bookgroup">
+            <h2>New Testament</h2>
+            <div class="bookgrid">
+              <a class="book" href="#p-02">Matthew <span class="count">28</span></a>
+              <a class="book" href="#p-02">Mark <span class="count">16</span></a>
+              <a class="book" href="#p-02">Luke <span class="count">24</span></a>
+              <a class="book" href="#p-02">John <span class="count">21</span></a>
+              <a class="book" href="#p-02">Acts <span class="count">28</span></a>
+              <a class="book" href="#p-02">Romans <span class="count">16</span></a>
+              <a class="book" href="#p-02">1 Corinthians <span class="count">16</span></a>
+              <a class="book" href="#p-02">2 Corinthians <span class="count">13</span></a>
+              <a class="book" href="#p-02">Galatians <span class="count">6</span></a>
+              <a class="book" href="#p-02">Ephesians <span class="count">6</span></a>
+              <a class="book" href="#p-02">Philippians <span class="count">4</span></a>
+              <a class="book" href="#p-02">Colossians <span class="count">4</span></a>
+              <a class="book" href="#p-02">1 Thessalonians <span class="count">5</span></a>
+              <a class="book" href="#p-02">2 Thessalonians <span class="count">3</span></a>
+              <a class="book" href="#p-02">1 Timothy <span class="count">6</span></a>
+              <a class="book" href="#p-02">2 Timothy <span class="count">4</span></a>
+              <a class="book" href="#p-02">Titus <span class="count">3</span></a>
+              <a class="book" href="#p-02">Philemon <span class="count">1</span></a>
+              <a class="book" href="#p-02">Hebrews <span class="count">13</span></a>
+              <a class="book" href="#p-02">James <span class="count">5</span></a>
+              <a class="book" href="#p-02">1 Peter <span class="count">5</span></a>
+              <a class="book" href="#p-02">2 Peter <span class="count">3</span></a>
+              <a class="book" href="#p-02">1 John <span class="count">5</span></a>
+              <a class="book" href="#p-02">2 John <span class="count">1</span></a>
+              <a class="book" href="#p-02">3 John <span class="count">1</span></a>
+              <a class="book" href="#p-02">Jude <span class="count">1</span></a>
+              <a class="book" href="#p-02">Revelation <span class="count">22</span></a>
+            </div>
+          </div>
+    </div>
+
+{% endblock %}

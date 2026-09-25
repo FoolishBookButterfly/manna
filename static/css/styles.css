@@ -1,0 +1,295 @@
+/* =============================================================================
+   MANNA — minimalist design reference
+   -----------------------------------------------------------------------------
+   This stylesheet is a DESIGN TARGET, not application code. It exists so you can
+   see and measure the intended visual language before writing Jinja templates.
+   Copy the *values* into your own static/css/styles.css as you build.
+   ============================================================================= */
+
+:root{
+  /* --- Surfaces & ink ------------------------------------------------------ */
+  --paper:       #FBF9F5;   /* page background — warm parchment            */
+  --panel:       #F5F1E9;   /* quiet panel: notes, notices                 */
+  --panel-2:     #EFE9DD;   /* deeper panel: chrome, hovers                */
+  --ink:         #1B1A18;   /* body text            17.2:1 on paper  (AAA) */
+  --ink-2:       #4E4A44;   /* secondary text        9.0:1          (AAA) */
+  --ink-3:       #6E6A62;   /* meta text             5.1:1          (AA)  */
+  --ink-4:       #8B857B;   /* decorative only       3.5:1 — never body   */
+  --rule:        #E4DDD1;   /* hairline borders                            */
+  --rule-2:      #D3C9B8;   /* stronger border: inputs, buttons            */
+
+  /* --- Accent & signals --------------------------------------------------- */
+  --accent:      #8A6A3B;   /* bronze — 4.8:1 (AA body)                    */
+  --accent-2:    #B08C55;   /* quieter accent: rules, marks                */
+  --accent-wash: #F0E7D8;   /* accent tint: focus, highlight, tag          */
+  --danger:      #8E3B31;   /* 7.1:1 (AAA)                                 */
+  --success:     #3F6B4F;   /* 5.8:1 (AA)                                  */
+
+  /* --- Geometry ----------------------------------------------------------- */
+  --radius:  3px;           /* crisp, not rounded-bubbly                   */
+  --measure: 66ch;          /* reading width for scripture                 */
+
+  /* --- Type --------------------------------------------------------------- */
+  --ui:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, SFMono-Regular, Consolas, "Courier New", monospace;
+}
+
+/* =============================== BASE ====================================== */
+*,*::before,*::after{ box-sizing:border-box }
+html{ -webkit-text-size-adjust:100% }
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--ui); font-size:15px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,p,ol,ul,figure,blockquote{ margin:0 }
+img,svg{ max-width:100% }
+a{ color:var(--accent); text-decoration:none; border-bottom:1px solid transparent }
+a:hover{ border-bottom-color:currentColor }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:2px }
+.skip-link{ position:absolute; left:-9999px }
+.skip-link:focus{
+  left:14px; top:14px; z-index:60; background:var(--ink); color:var(--paper);
+  padding:9px 14px; border-radius:var(--radius); border:0;
+}
+
+/* =============================== LAYOUT ==================================== */
+.shell{ max-width:1120px; margin:0 auto; padding:0 28px }
+.reading{ max-width:var(--measure); margin:0 auto }
+main{ display:block; padding:48px 0 68px }
+.stack > * + *{ margin-top:16px }
+.stack-lg > * + *{ margin-top:30px }
+.spacer{ margin-left:auto }
+.nowrap{ white-space:nowrap }
+
+.eyebrow{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--ink-3) }
+.display{ font-family:var(--serif); font-size:40px; font-weight:400; line-height:1.14; letter-spacing:-.01em }
+.lede{ font-size:17px; color:var(--ink-2); max-width:52ch }
+.meta{ font-size:13px; color:var(--ink-3) }
+.divider{ height:1px; border:0; background:var(--rule); margin:28px 0 }
+.tag{
+  display:inline-block; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-wash); border-radius:999px; padding:3px 10px;
+}
+
+/* =============================== HEADER ==================================== */
+.site-header{ background:var(--paper); border-bottom:1px solid var(--rule) }
+.site-header .shell{ display:flex; align-items:center; gap:26px; min-height:64px }
+.brand{ display:inline-flex; align-items:center; gap:10px; color:var(--ink); border:0;
+        font-family:var(--serif); font-size:20px; letter-spacing:.01em }
+.brand:hover{ border:0 }
+.brand-mark{ width:20px; height:20px; flex:0 0 20px; color:var(--accent) }
+.nav{ margin-left:auto; display:flex; align-items:center; gap:24px; flex-wrap:wrap }
+.nav a{ color:var(--ink-2); font-size:14px; padding:4px 0; border-bottom:1px solid transparent }
+.nav a:hover{ color:var(--ink) }
+.nav a[aria-current="page"]{ color:var(--ink); border-bottom-color:var(--accent) }
+.nav .who{ font-size:13px; color:var(--ink-3) }
+
+/* =============================== BUTTONS ================================== */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:40px; padding:0 16px; border:1px solid var(--rule-2); border-radius:var(--radius);
+  background:transparent; color:var(--ink); font:inherit; font-size:14px; cursor:pointer;
+}
+.btn:hover{ border-color:var(--ink-3) }
+.btn--primary{ background:var(--ink); border-color:var(--ink); color:var(--paper) }
+.btn--primary:hover{ background:#000; border-color:#000 }
+.btn--quiet{ border-color:transparent; color:var(--ink-2); padding:0 10px }
+.btn--quiet:hover{ border-color:var(--rule-2) }
+.btn--danger{ color:var(--danger); border-color:#E2D2CE }
+.btn--danger:hover{ border-color:var(--danger); background:#FBF1EF }
+.btn--sm{ min-height:32px; padding:0 12px; font-size:13px }
+.btn[disabled]{ color:var(--ink-4); border-color:var(--rule); cursor:not-allowed }
+/* =============================== FORMS ==================================== */
+.field{ display:block; margin-bottom:22px }
+.label{ display:block; font-size:13px; font-weight:600; letter-spacing:.01em; color:var(--ink-2); margin-bottom:7px }
+.input{
+  width:100%; min-height:44px; padding:10px 13px; background:#fff; color:var(--ink);
+  border:1px solid var(--rule-2); border-radius:var(--radius); font:inherit; font-size:15px;
+}
+.input::placeholder{ color:var(--ink-4) }
+.input:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-wash) }
+textarea.input{ min-height:92px; line-height:1.6; resize:vertical }
+.hint{ margin-top:7px; font-size:13px; color:var(--ink-3) }
+.error{ margin-top:7px; font-size:13px; color:var(--danger) }
+.field.invalid .input{ border-color:var(--danger) }
+.field.invalid .input:focus{ box-shadow:0 0 0 3px #F6E3E0 }
+
+/* =============================== NOTICES ================================== */
+.notice{
+  display:flex; gap:12px; align-items:flex-start; padding:13px 16px; font-size:14px; color:var(--ink-2);
+  background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--ink-3);
+  border-radius:var(--radius);
+}
+.notice strong{ color:var(--ink); font-weight:600 }
+.notice--info{ border-left-color:var(--accent) }
+.notice--success{ border-left-color:var(--success) }
+.notice--error{ border-left-color:var(--danger) }
+
+/* =============================== SEARCH =================================== */
+.search{ display:flex; gap:10px; align-items:stretch }
+.search .input{ min-height:46px }
+
+/* =============================== BOOKS LIST =============================== */
+.bookgroup{ margin-top:34px }
+.bookgroup h2{
+  font-family:var(--serif); font-size:18px; font-weight:400; color:var(--ink-2);
+  padding-bottom:10px; border-bottom:1px solid var(--rule); margin-bottom:16px;
+}
+.bookgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(198px,1fr)); gap:0 28px }
+.book{
+  display:flex; align-items:baseline; gap:10px; padding:9px 0; font-size:15px; color:var(--ink);
+  border-bottom:1px solid var(--rule);
+}
+.book:hover{ border-bottom-color:var(--accent) }
+.book .count{ margin-left:auto; font-size:12px; color:var(--ink-3); font-variant-numeric:tabular-nums }
+
+/* =============================== READER =================================== */
+.chapter-head{
+  display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap;
+  padding-bottom:18px; border-bottom:1px solid var(--rule); margin-bottom:30px;
+}
+.chapter-head h1{ font-family:var(--serif); font-size:34px; font-weight:400; line-height:1.1 }
+.chapter-head .sub{ font-size:13px; color:var(--ink-3); padding-bottom:4px }
+.chapter-tools{ margin-left:auto; display:flex; align-items:center; gap:12px }
+.select{
+  min-height:38px; padding:6px 10px; background:#fff; color:var(--ink);
+  border:1px solid var(--rule-2); border-radius:var(--radius); font:inherit; font-size:14px;
+}
+.verses{ list-style:none; padding:0; margin:0 }
+.verse{
+  display:grid; grid-template-columns:30px 1fr 26px; gap:0 16px; align-items:start;
+  padding:10px 8px 10px 0; border-radius:var(--radius);
+}
+.verse + .verse{ margin-top:2px }
+.verse:hover{ background:rgba(138,106,59,.045) }
+.vnum{ font-family:var(--serif); font-size:13px; color:var(--ink-4); text-align:right;
+       padding-top:7px; font-variant-numeric:tabular-nums }
+.vtext{ font-family:var(--serif); font-size:21px; line-height:1.72; color:var(--ink) }
+.vaction{ padding-top:4px; opacity:.45 }
+.verse:hover .vaction,.verse:focus-within .vaction{ opacity:1 }
+.vaction .btn{ width:26px; min-height:26px; padding:0; border-color:transparent;
+               color:var(--ink-4); font-size:16px; line-height:1 }
+.verse.has-note{ background:var(--panel); box-shadow:inset 3px 0 0 var(--accent-2) }
+.verse.has-note .vnum{ color:var(--accent) }
+.verse.has-note .vaction .btn{ color:var(--accent); opacity:1 }
+.pager{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  margin-top:38px; padding-top:20px; border-top:1px solid var(--rule);
+}
+.pager .btn--quiet{ color:var(--accent) }
+.pager .ref{ font-size:13px; color:var(--ink-3) }
+/* =============================== NOTE UI ================================== */
+.note-panel{
+  margin:4px 0 14px 46px; padding:16px 18px; background:var(--panel);
+  border:1px solid var(--rule); border-left:3px solid var(--accent-2); border-radius:var(--radius);
+}
+.note-meta{ display:flex; align-items:center; gap:10px; font-size:12px; color:var(--ink-3); margin-bottom:10px }
+.note-body{ font-family:var(--serif); font-size:17px; line-height:1.62 }
+.note-actions{ display:flex; align-items:center; gap:10px; margin-top:12px }
+
+/* =============================== SEARCH RESULTS =========================== */
+.count-line{ font-size:14px; color:var(--ink-2) }
+.results{ list-style:none; padding:0; margin:0 }
+.result{ padding:18px 0; border-bottom:1px solid var(--rule) }
+.result-ref{ font-size:14px; font-weight:600; color:var(--accent); font-variant-numeric:tabular-nums }
+.result-text{ font-family:var(--serif); font-size:18px; line-height:1.66; margin-top:6px }
+mark{ background:var(--accent-wash); color:inherit; padding:.05em .12em; border-radius:2px }
+
+/* =============================== NOTES PAGE =============================== */
+.note-card{
+  padding:20px 22px; margin-bottom:16px; background:#fff;
+  border:1px solid var(--rule); border-radius:var(--radius);
+}
+.note-card .ref{ font-size:14px; font-weight:600; color:var(--accent) }
+.note-card .body{ font-family:var(--serif); font-size:18px; line-height:1.6; margin:10px 0 14px }
+.note-card .foot{ display:flex; align-items:center; gap:14px; font-size:12px; color:var(--ink-3) }
+.confirm{
+  display:flex; align-items:center; gap:10px; padding:12px 14px; margin-top:14px;
+  background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius);
+  font-size:13px; color:var(--ink-2);
+}
+
+/* =============================== AUTH · EMPTY · ERRORS ==================== */
+.auth{ max-width:430px; margin:20px auto 0 }
+.auth-card{ padding:32px; background:#fff; border:1px solid var(--rule); border-radius:var(--radius) }
+.auth-switch{ margin-top:20px; text-align:center; font-size:14px; color:var(--ink-3) }
+.empty{
+  padding:44px 28px; text-align:center; background:var(--panel);
+  border:1px dashed var(--rule-2); border-radius:var(--radius);
+}
+.empty h2{ font-family:var(--serif); font-size:22px; font-weight:400; margin-bottom:10px }
+.empty p{ max-width:46ch; margin:0 auto 18px; color:var(--ink-2) }
+.err{ padding:60px 0; text-align:center }
+.err .code{ font-family:var(--serif); font-size:64px; line-height:1; color:var(--rule-2) }
+
+/* =============================== FOOTER =================================== */
+.site-footer{ padding:26px 0 40px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-3) }
+.site-footer .row{ display:flex; gap:18px; flex-wrap:wrap; align-items:baseline }
+.site-footer a{ color:var(--ink-3); border-bottom-color:var(--rule-2) }
+
+/* =============================================================================
+   PREVIEW SCAFFOLDING — not part of the app design.
+   These rules only draw the "browser window" frames used to present each screen
+   in design/preview.html. Do not copy this section into your project.
+   ============================================================================= */
+body.preview{ background:#E9E4DA }
+.preview-bar{
+  position:sticky; top:0; z-index:80; background:var(--ink); color:var(--paper);
+  padding:12px 28px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+.preview-bar .pv-brand{ font-family:var(--serif); font-size:17px }
+.preview-bar a{ color:rgba(251,249,245,.72); font-size:13px; border-bottom:1px solid transparent }
+.preview-bar a:hover{ color:var(--paper); border-bottom-color:rgba(251,249,245,.5) }
+.preview-bar .pv-note{ margin-left:auto; font-size:12px; color:rgba(251,249,245,.6) }
+.preview-wrap{ padding:36px 28px 80px }
+.plate{ max-width:1240px; margin:0 auto 64px }
+.plate-label{ display:flex; align-items:baseline; gap:12px; padding:0 4px 12px; flex-wrap:wrap }
+.plate-label .num{ font-family:var(--serif); font-size:14px; color:var(--ink-3) }
+.plate-label strong{ font-size:15px }
+.plate-label .note{ font-size:13px; color:var(--ink-3) }
+.plate-label .file{
+  margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--ink-3);
+  background:#fff; border:1px solid var(--rule); border-radius:999px; padding:3px 12px;
+}
+.browser{ background:var(--paper); border:1px solid var(--rule-2); border-radius:8px;
+          overflow:hidden; box-shadow:0 18px 50px rgba(27,26,24,.10) }
+.browser-bar{ display:flex; align-items:center; gap:12px; padding:10px 14px;
+              background:var(--panel-2); border-bottom:1px solid var(--rule) }
+.dots{ display:flex; gap:6px }
+.dots i{ width:9px; height:9px; border-radius:50%; background:var(--rule-2) }
+.url{ flex:1; padding:5px 14px; background:var(--paper); border:1px solid var(--rule);
+      border-radius:999px; font-family:var(--mono); font-size:12px; color:var(--ink-3) }
+.browser-body .site-header{ position:static }
+.browser-body main{ padding:40px 0 56px }
+.pair{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start }
+.pair--wide{ grid-template-columns:1.15fr .85fr }
+@media (max-width:900px){ .pair{ grid-template-columns:1fr } }
+
+/* narrow-viewport simulation (a real phone uses your media queries instead) */
+.browser--mobile{ max-width:404px; margin:0 auto }
+.browser--mobile .shell{ padding:0 18px }
+.browser--mobile .site-header .shell{ min-height:56px; gap:14px; flex-wrap:nowrap }
+.browser--mobile .brand{ font-size:18px }
+.browser--mobile .nav{ gap:14px; flex-wrap:nowrap }
+.browser--mobile .nav a{ font-size:13px }
+.browser--mobile .nav .who{ display:none }
+.browser--mobile .display{ font-size:28px }
+.browser--mobile .chapter-head h1{ font-size:26px }
+.browser--mobile .chapter-tools{ margin-left:0; width:100% }
+.browser--mobile .bookgrid{ grid-template-columns:1fr }
+.browser--mobile .verse{ grid-template-columns:22px 1fr 24px; gap:0 10px }
+.browser--mobile .vtext{ font-size:19px }
+.browser--mobile .note-panel{ margin-left:0 }
+.browser--mobile .pager{ flex-direction:column; align-items:stretch }
+
+/* style-guide scaffolding */
+.swatches{ display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:12px }
+.swatch{ background:#fff; border:1px solid var(--rule); border-radius:var(--radius); overflow:hidden }
+.swatch .chip{ height:54px }
+.swatch .info{ padding:8px 10px; font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.5 }
+.pv-block{ padding:26px; background:#fff; border:1px solid var(--rule); border-radius:var(--radius) }
+.pv-block h3{ font-family:var(--serif); font-size:16px; font-weight:400; color:var(--ink-2); margin-bottom:16px }
+.specimen p{ margin-bottom:10px }
+.btn-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap }
