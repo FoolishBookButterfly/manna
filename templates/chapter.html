@@ -87,6 +87,30 @@
 
             <nav class="pager" aria-label="Chapter navigation">
 
+                {% if chapter_num == 1 %}
+
+                    {% set current_index = books.index(book_name) %}
+
+                    {% if current_index > 0 %}
+
+                        {% set prev_book = books[current_index - 1] %}
+                        {% set prev_chapters = bible[prev_book] %}
+                        {% set prev_chapter_num = prev_chapters|length %}
+
+                        <a class="btn btn--quiet"
+                        href="{{ url_for(
+                            'chapter',
+                            book_slug=format_slug(prev_book),
+                            chapter_num=prev_chapter_num
+                        ) }}">
+                            {{ prev_book }} {{ prev_chapter_num }} ←
+                        </a>
+
+                    {% endif %}
+
+                {% endif %}
+
+
                 {% if chapter_num > 1 %}
 
                     <a class="btn btn--quiet"

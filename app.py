@@ -69,5 +69,6 @@ def chapter(book_slug, chapter_num):
         chapters=chapters,
         verses=verses,
         format_slug=format_slug,
-        books=books
+        books=books,
+        bible=bible
     )
