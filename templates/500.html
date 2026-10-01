@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Page Not Found
+{% endblock %}
+
+{% block main %}
+    <div>
+        <main>
+          <div class="shell">
+            <div class="err">
+              <p class="code">500</p>
+              <h1 style="font-family:var(--serif);font-size:26px;font-weight:400;margin:14px 0 10px">Something went wrong</h1>
+              <p class="meta" style="max-width:44ch;margin:0 auto 22px">The problem is on our side, not yours. Nothing you typed was lost from this page.</p>
+              <div class="btn-row" style="justify-content:center">
+                <a class="btn btn--primary" href="{{ url_for('index') }}">Back to all books</a>
+              </div>
+            </div>
+          </div>
+        </main>
+    </div>
+{% endblock %}

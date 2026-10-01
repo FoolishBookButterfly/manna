@@ -38,7 +38,7 @@
                             <option
                                 value="{{ url_for(
                                     'chapter',
-                                    book_name=book_name,
+                                    book_slug=format_slug(book_name),
                                     chapter_num=chapter
                                 ) }}"
                                 {% if chapter|int == chapter_num %}
@@ -92,7 +92,7 @@
                     <a class="btn btn--quiet"
                        href="{{ url_for(
                            'chapter',
-                           book_name=book_name,
+                           book_slug=format_slug(book_name),
                            chapter_num=chapter_num - 1
                        ) }}">
                         ← {{ book_name }} {{ chapter_num - 1 }}
@@ -111,13 +111,36 @@
                     <a class="btn btn--quiet"
                        href="{{ url_for(
                            'chapter',
-                           book_name=book_name,
+                           book_slug=format_slug(book_name),
                            chapter_num=chapter_num + 1
                        ) }}">
                         {{ book_name }} {{ chapter_num + 1 }} →
                     </a>
 
                 {% endif %}
+
+                {% if chapter_num == chapters|length %}
+
+                    {% set current_index = books.index(book_name) %}
+
+                    {% if current_index + 1 < books|length %}
+
+                        {% set next_book = books[current_index + 1] %}
+
+                        <a class="btn btn--quiet"
+                        href="{{ url_for(
+                            'chapter',
+                            book_slug=format_slug(next_book),
+                            chapter_num=1
+                        ) }}">
+                            {{ next_book }} 1 →
+                        </a>
+
+                    {% endif %}
+
+                {% endif %}
+
+                
 
             </nav>
 
