@@ -17,5 +17,7 @@ def fetch_passage(book_name, chapter_num, verse_num):
                     and verse == str(verse_num)):
                     return text
 
+def format_slug(book):
+    return book.lower().replace(" ", "-")
 
 

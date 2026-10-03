@@ -13,13 +13,13 @@
             <div class="chapter-head">
 
                 <p class="eyebrow" style="width:100%;margin-bottom:8px">
-                    {{ book_name }} · Chapter {{ chapter_num }}
+                    KING JAMES VERSION
                 </p>
 
                 <h1>{{ book_name }} {{ chapter_num }}</h1>
 
                 <span class="sub">
-                    {{ verses|length }} verses · King James Version
+                    {{ verses|length }} verses
                 </span>
 
                 <div class="chapter-tools">
@@ -170,7 +170,7 @@
 
 
             <p class="meta" style="margin-top:18px">
-                <a href="{{ url_for('index') }}">All books</a>
+                <a href="{{ url_for('books') }}">All books</a>
             </p>
 
         </div>

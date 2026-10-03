@@ -13,8 +13,8 @@
               <h1 style="font-family:var(--serif);font-size:26px;font-weight:400;margin:14px 0 10px">That page does not exist</h1>
               <p class="meta" style="max-width:44ch;margin:0 auto 22px">This page could not be found. Please check the URL or return to the Bible and continue reading.</p>
               <div class="btn-row" style="justify-content:center">
-                <a class="btn btn--primary" href="{{ url_for('index') }}">Back to all books</a>
-                <a class="btn" href="chapter/genesis/1">Read Genesis 1</a>
+                <a class="btn btn--primary" href="{{ url_for('books') }}">Back to all books</a>
+                <a class="btn" href="{{ url_for('chapter', book_slug='genesis', chapter_num=1) }}">Read Genesis 1</a>
               </div>
             </div>
           </div>

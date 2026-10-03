@@ -33,6 +33,63 @@
   --ui:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   --mono:  ui-monospace, SFMono-Regular, Consolas, "Courier New", monospace;
+
+  /* --- The cover gradient -------------------------------------------------
+     The system's only gradient, and never ornament: it belongs to the landing
+     photograph, washing its left edge towards parchment so the masthead stays
+     legible. Both are calibrated against the text they sit under: every style
+     keeps WCAG AA at its worst pixel, not on average.
+
+     `--cover-fade` (desktop) is in percentages, because on a wide screen the
+     masthead sits in a centred column — its reach is a share of the window.
+
+     `--cover-fade-phone` is anchored in pixels instead, because a phone
+     masthead is a fixed size: the wash holds at ~.9 across the first 182px —
+     the part of every line that is the same on every phone — then opens across
+     whatever is left of the screen. A percentage wash cannot do both jobs: open
+     early enough to show the landscape on a 430px phone, and stay opaque long
+     enough on a 320px one, where the same sentence reaches 77% of the width
+     instead of 57%. (calc() in a colour stop is ~97% supported; IE and
+     pre-2013 engines are the only losses.) */
+  --cover-fade:
+    linear-gradient(90deg,
+      rgba(255,253,248,.98) 0%,
+      rgba(255,253,248,.90) 30%,
+      rgba(255,253,248,.62) 50%,
+      rgba(255,253,248,.22) 72%,
+      rgba(255,253,248,.05) 100%);
+  --cover-fade-phone:
+    linear-gradient(90deg,
+      rgba(255,253,248,.99) 0,
+      rgba(255,253,248,.97) 130px,
+      rgba(255,253,248,.88) 182px,
+      rgba(255,253,248,.60) calc(182px + (100% - 182px) * .30),
+      rgba(255,253,248,.28) calc(182px + (100% - 182px) * .62),
+      rgba(255,253,248,.08) calc(182px + (100% - 182px) * .86),
+      rgba(255,253,248,.02) 100%);
+
+  /* The night cover gradient: the same five stops (and the same phone
+     construction) recoloured to the dark paper, so the wash keeps its exact
+     shape when the moonlit photograph fades in. It lives on the night layer,
+     not on --cover-fade, because the two washes cross-fade rather than swap. */
+  --cover-fade-dark:
+    linear-gradient(90deg,
+      rgba(21,24,28,.98) 0%,
+      rgba(21,24,28,.90) 30%,
+      rgba(21,24,28,.62) 50%,
+      rgba(21,24,28,.22) 72%,
+      rgba(21,24,28,.05) 100%);
+  --cover-fade-dark-phone:
+    linear-gradient(90deg,
+      rgba(21,24,28,.99) 0,
+      rgba(21,24,28,.97) 130px,
+      rgba(21,24,28,.88) 182px,
+      rgba(21,24,28,.60) calc(182px + (100% - 182px) * .30),
+      rgba(21,24,28,.28) calc(182px + (100% - 182px) * .62),
+      rgba(21,24,28,.08) calc(182px + (100% - 182px) * .86),
+      rgba(21,24,28,.02) 100%);
+
+  color-scheme: light;
 }
 
 /* =============================== BASE ====================================== */
@@ -229,67 +286,230 @@ mark{ background:var(--accent-wash); color:inherit; padding:.05em .12em; border-
 .site-footer .row{ display:flex; gap:18px; flex-wrap:wrap; align-items:baseline }
 .site-footer a{ color:var(--ink-3); border-bottom-color:var(--rule-2) }
 
-/* =============================================================================
-   PREVIEW SCAFFOLDING — not part of the app design.
-   These rules only draw the "browser window" frames used to present each screen
-   in design/preview.html. Do not copy this section into your project.
-   ============================================================================= */
-body.preview{ background:#E9E4DA }
-.preview-bar{
-  position:sticky; top:0; z-index:80; background:var(--ink); color:var(--paper);
-  padding:12px 28px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;
-}
-.preview-bar .pv-brand{ font-family:var(--serif); font-size:17px }
-.preview-bar a{ color:rgba(251,249,245,.72); font-size:13px; border-bottom:1px solid transparent }
-.preview-bar a:hover{ color:var(--paper); border-bottom-color:rgba(251,249,245,.5) }
-.preview-bar .pv-note{ margin-left:auto; font-size:12px; color:rgba(251,249,245,.6) }
-.preview-wrap{ padding:36px 28px 80px }
-.plate{ max-width:1240px; margin:0 auto 64px }
-.plate-label{ display:flex; align-items:baseline; gap:12px; padding:0 4px 12px; flex-wrap:wrap }
-.plate-label .num{ font-family:var(--serif); font-size:14px; color:var(--ink-3) }
-.plate-label strong{ font-size:15px }
-.plate-label .note{ font-size:13px; color:var(--ink-3) }
-.plate-label .file{
-  margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--ink-3);
-  background:#fff; border:1px solid var(--rule); border-radius:999px; padding:3px 12px;
-}
-.browser{ background:var(--paper); border:1px solid var(--rule-2); border-radius:8px;
-          overflow:hidden; box-shadow:0 18px 50px rgba(27,26,24,.10) }
-.browser-bar{ display:flex; align-items:center; gap:12px; padding:10px 14px;
-              background:var(--panel-2); border-bottom:1px solid var(--rule) }
-.dots{ display:flex; gap:6px }
-.dots i{ width:9px; height:9px; border-radius:50%; background:var(--rule-2) }
-.url{ flex:1; padding:5px 14px; background:var(--paper); border:1px solid var(--rule);
-      border-radius:999px; font-family:var(--mono); font-size:12px; color:var(--ink-3) }
-.browser-body .site-header{ position:static }
-.browser-body main{ padding:40px 0 56px }
-.pair{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start }
-.pair--wide{ grid-template-columns:1.15fr .85fr }
-@media (max-width:900px){ .pair{ grid-template-columns:1fr } }
+/* =============================== HOME / LANDING ========================== */
+/* A quiet cover: one photograph, an edge faded to parchment so the words sit
+   inside the frame, and a single way in. The photograph is a real asset
+   (design/manna-background.webp) referenced from this stylesheet, so the
+   preview stays offline. Swap the file to change the image; nothing else moves.
 
-/* narrow-viewport simulation (a real phone uses your media queries instead) */
-.browser--mobile{ max-width:404px; margin:0 auto }
-.browser--mobile .shell{ padding:0 18px }
-.browser--mobile .site-header .shell{ min-height:56px; gap:14px; flex-wrap:nowrap }
-.browser--mobile .brand{ font-size:18px }
-.browser--mobile .nav{ gap:14px; flex-wrap:nowrap }
-.browser--mobile .nav a{ font-size:13px }
-.browser--mobile .nav .who{ display:none }
-.browser--mobile .display{ font-size:28px }
-.browser--mobile .chapter-head h1{ font-size:26px }
-.browser--mobile .chapter-tools{ margin-left:0; width:100% }
-.browser--mobile .bookgrid{ grid-template-columns:1fr }
-.browser--mobile .verse{ grid-template-columns:22px 1fr 24px; gap:0 10px }
-.browser--mobile .vtext{ font-size:19px }
-.browser--mobile .note-panel{ margin-left:0 }
-.browser--mobile .pager{ flex-direction:column; align-items:stretch }
+   Movement is deliberately small and CSS-only: the landscape breathes
+   (1 -> 1.02 over 28s), the masthead rises one line at a time, and the button's
+   arrow steps right on hover. All three stop for prefers-reduced-motion. */
+.home{
+  position:relative; isolation:isolate;
+  min-height:100vh; min-height:100svh;
+  display:flex; align-items:center; text-align:left;
+  padding:clamp(84px,14vh,164px) 0 clamp(104px,18vh,204px);
+  overflow:hidden; background:var(--paper);
+}
+.home::before{                 /* the photograph — very slowly breathing */
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:url("../manna-background.webp") center/cover no-repeat;
+  transform-origin:62% 42%; will-change:transform;
+  animation:breathe 28s ease-in-out infinite alternate;
+  transition:opacity .7s ease-in-out;   /* the day half of the crossfade */
+}
+.home::after{                  /* --cover-fade keeps parchment under the words */
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:var(--cover-fade);
+  transition:opacity .7s ease-in-out;   /* the light wash fades with the day */
+}
+@keyframes breathe{ from{ transform:scale(1) } to{ transform:scale(1.02) } }
+.home-night{                   /* the night photograph WITH its own wash, stacked above
+                                  the day layers; only opacity ever changes here, so the
+                                  two landscapes cross-fade instead of snapping. */
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background-image:var(--cover-fade-dark), url("../manna-background-dark.png");
+  background-position:center, center;
+  background-size:cover; background-repeat:no-repeat;
+  opacity:0;
+  transform-origin:62% 42%; will-change:transform, opacity;
+  animation:breathe 28s ease-in-out infinite alternate;   /* the same quiet breath */
+  transition:opacity .7s ease-in-out;
+}
+.home-inner{                   /* masthead container — generous margins, never stranded */
+  position:relative; z-index:3;   /* above .home-night (z2), which is above the day layers */
+  width:min(100% - 120px, 1200px); margin-inline:auto;
+  display:flex; flex-direction:column; align-items:flex-start;
+}
+.home-eyebrow{ margin-bottom:24px }
+.home-title{                   /* the anchor: a masthead, not a billboard */
+  font-family:var(--serif); font-weight:400; line-height:1.02; color:var(--ink);
+  font-size:clamp(52px,7vw,100px); letter-spacing:.01em;
+}
+.home-motto{
+  margin-top:26px; max-width:34ch; color:var(--ink-2);
+  font-size:clamp(16px,1.5vw,18px); line-height:1.6;
+}
+.home-cta{
+  margin-top:40px; min-height:52px; padding:0 30px; font-size:15px;
+  border-radius:2px;                    /* a hair crisper than the default 3px */
+  transition:background-color .25s ease, border-color .25s ease;
+}
+.home-cta .arrow{ display:inline-block; transition:transform .25s cubic-bezier(.22,.61,.36,1) }
+.home-cta:hover .arrow,
+.home-cta:focus-visible .arrow{ transform:translateX(5px) }
 
-/* style-guide scaffolding */
-.swatches{ display:grid; grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:12px }
-.swatch{ background:#fff; border:1px solid var(--rule); border-radius:var(--radius); overflow:hidden }
-.swatch .chip{ height:54px }
-.swatch .info{ padding:8px 10px; font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.5 }
-.pv-block{ padding:26px; background:#fff; border:1px solid var(--rule); border-radius:var(--radius) }
-.pv-block h3{ font-family:var(--serif); font-size:16px; font-weight:400; color:var(--ink-2); margin-bottom:16px }
-.specimen p{ margin-bottom:10px }
-.btn-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap }
+/* the masthead reveals itself, one line at a time */
+@keyframes rise{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:translateY(0) } }
+@keyframes fade-in{ from{ opacity:0 } to{ opacity:1 } }
+.home-inner > *{ animation:rise .9s cubic-bezier(.22,.61,.36,1) both }
+.home-inner > *:nth-child(1){ animation-delay:.05s }   /* THE HOLY SCRIPTURES */
+.home-inner > *:nth-child(2){ animation-delay:.20s }   /* Manna               */
+.home-inner > *:nth-child(3){ animation-delay:.35s }   /* the motto           */
+.home-inner > *:nth-child(4){ animation-delay:.50s }   /* Begin reading →     */
+
+/* --- phone: the same cover, held tighter. A portrait window shows only about
+   a quarter of the photograph's width, so the anchor moves onto the sunlit
+   crest. The sun sits ~78% across, and `background-position:X%` maps source X%
+   onto X% of the window — so the light lands in the open right-hand third on
+   any screen ratio. The wash then opens from a fixed distance out (182px)
+   rather than from a share of the window, so the words keep their ground at
+   320px and the landscape keeps its light at 430px — one percentage stop
+   cannot do both. See the token above. */
+@media (max-width:760px){
+  .home{ padding:0 0 56px }
+  .home::before{ background-position:78% center; transform-origin:78% 45% }
+  .home::after{ background:var(--cover-fade-phone) }
+  .home-night{                  /* same treatment for the night pair (wash, photo) */
+    background-image:var(--cover-fade-dark-phone), url("../manna-background-dark.png");
+    background-position:center, 78% center;
+    transform-origin:78% 45%;
+  }
+  .home-inner{ width:min(100% - 48px, 1200px) }
+  .home-eyebrow{ margin-bottom:20px }
+  .home-title{ font-size:clamp(48px,13vw,68px) }
+  .home-motto{ margin-top:22px; font-size:16px }
+  .home-cta{ margin-top:32px; min-height:50px; padding:0 28px }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .home::before{ animation:none }
+  /* the nth-child stagger rules above out-rank a bare `.home-inner > *`, so name them */
+  .home-inner > *,
+  .home-inner > *:nth-child(1),
+  .home-inner > *:nth-child(2),
+  .home-inner > *:nth-child(3),
+  .home-inner > *:nth-child(4){ animation:fade-in .35s ease both; animation-delay:0s }
+  .home-cta, .home-cta .arrow{ transition:none }
+}
+@media print{                  /* a printed cover is never caught mid-reveal */
+  .home::before{ animation:none }
+  /* Unlike the reduced-motion block above, no nth-child list is needed here: the
+     shorthand sets animation-name to none, so the stagger delays still apply but
+     have nothing left to delay, and the masthead prints at full opacity. */
+  .home-inner > *{ animation:none }
+}
+
+/* =============================== DARK THEME ============================== */
+/* The night counterpart of the tokens above: same roles, same relationships,
+   simply after sunset. Only colour changes here — layout, typography, spacing
+   and every rule above are untouched, and light mode stays the :root default.
+   theme.js sets data-theme="dark" on <html> when the reader asks for it.     */
+[data-theme="dark"]{
+  color-scheme:dark;
+
+  /* --- Surfaces & ink ------------------------------------------------------ */
+  --paper:      #15181C;   /* deep charcoal-blue — never pure black            */
+  --panel:      #1D2024;   /* quiet panel: notes, notices                     */
+  --panel-2:    #24272B;   /* deeper panel: chrome, hovers, inputs            */
+  --ink:        #F1EEE6;   /* warm off-white — never pure white               */
+  --ink-2:      #C4C0B7;
+  --ink-3:      #9B978F;
+  --ink-4:      #77736C;   /* decorative only, as in light mode               */
+  --rule:       #34373A;
+  --rule-2:     #45484B;
+
+  /* --- Accent & signals --------------------------------------------------- */
+  --accent:     #B08C55;   /* muted gold, lifted so links stay AA on charcoal */
+  --accent-2:   #C4A06A;
+  --accent-wash:#302A21;
+  --danger:     #D98C80;   /* daylight values are unreadable on a dark page   */
+  --success:    #7FAF91;
+}
+
+/* --- Surfaces that carry a literal colour instead of a token -------------- */
+[data-theme="dark"] .input,
+[data-theme="dark"] .select{ background:var(--panel-2) }
+[data-theme="dark"] .note-card,
+[data-theme="dark"] .auth-card{ background:var(--panel) }
+
+/* --- Buttons: the primary action becomes warm bronze, labelled in paper --- */
+[data-theme="dark"] .btn--primary{
+  background:var(--accent); border-color:var(--accent); color:var(--paper);
+}
+[data-theme="dark"] .btn--primary:hover{
+  background:var(--accent-2); border-color:var(--accent-2); color:var(--paper);
+}
+[data-theme="dark"] .btn--danger{ border-color:rgba(217,140,128,.45) }
+[data-theme="dark"] .btn--danger:hover{
+  background:rgba(217,140,128,.12); border-color:var(--danger);
+}
+[data-theme="dark"] .field.invalid .input:focus{ box-shadow:0 0 0 3px rgba(217,140,128,.22) }
+/* the reader's hover keeps its bronze tint, weighted for a dark page */
+[data-theme="dark"] .verse:hover{ background:rgba(196,160,106,.08) }
+
+/* --- The day → night crossfade on the landing page ------------------------
+   Four stacked layers inside .home (bottom → top): the day photograph
+   (::before), its parchment wash (::after), .home-night (night photograph +
+   night wash, one element so they always fade as one), then .home-inner.
+   Flipping the theme only moves opacity — nothing is swapped or reloaded, so
+   the landscape quietly becomes night in both directions.                   */
+[data-theme="dark"] .home::before{ opacity:0 }    /* the day photograph recedes */
+[data-theme="dark"] .home::after{ opacity:0 }     /* and its parchment wash     */
+[data-theme="dark"] .home-night{ opacity:1 }      /* the night takes its place  */
+
+/* =============================== THEME TOGGLE =========================== */
+/* A hairline square with a line-art moon/sun, in the spirit of the brand
+   mark: small enough to ignore, present on the cover and in every header.  */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; padding:0;
+  background:transparent; border:1px solid var(--rule-2); border-radius:var(--radius);
+  color:var(--ink-2); cursor:pointer;
+  transition:background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.theme-toggle:hover{ background:var(--panel); border-color:var(--ink-3); color:var(--ink) }
+.theme-toggle svg{ display:block; width:16px; height:16px }
+.theme-toggle .icon-sun{ display:none }                       /* light mode offers night */
+[data-theme="dark"] .theme-toggle .icon-moon{ display:none }
+[data-theme="dark"] .theme-toggle .icon-sun{ display:block }  /* night offers morning    */
+
+/* The cover has no header, so its toggle keeps the quiet top-right corner —
+   dark ink over the day sky, pale ink over the night sky. */
+.theme-toggle--home{ position:absolute; top:26px; right:28px; z-index:4 }
+@media (max-width:760px){ .theme-toggle--home{ top:18px; right:16px } }
+
+/* =============================== THEME SWITCH =========================== */
+/* Only while the toggle is working: theme.js adds .theme-anim to <html>,
+   flips data-theme, then removes the class once the change has finished.
+   Outside that window no rule sets a transition, so ordinary hover and focus
+   behaviour — in both themes — is exactly what it was before.              */
+.theme-anim,
+.theme-anim *{
+  transition-property:background-color, border-color, color, box-shadow,
+                      fill, stroke, opacity;
+  transition-duration:.3s;
+  transition-timing-function:ease-in-out;
+}
+.theme-anim .home,
+.theme-anim .home *{ transition-duration:.7s }   /* the cover keeps its slow pace */
+
+@media (prefers-reduced-motion: reduce){
+  /* the night layer stops breathing exactly as the day layer already does */
+  .home .home-night{ animation:none }
+  /* and the day/night change becomes immediate rather than a long dissolve */
+  .home::before,
+  .home::after,
+  .home .home-night,
+  .theme-anim,
+  .theme-anim *,
+  .theme-anim .home,
+  .theme-anim .home *{ transition-duration:.01ms }
+  .theme-toggle{ transition:none }
+}
+@media print{
+  .theme-toggle{ display:none }
+  .home .home-night{ animation:none }
+}
+

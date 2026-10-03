@@ -36,10 +36,14 @@ def after_request(response):
 
 @app.route("/")
 def index():
+     return render_template("index.html")
+
+@app.route("/book")
+def books():
     OLD_TESTAMENT = list(bible.keys())[:39]
     NEW_TESTAMENT = list(bible.keys())[39:]
 
-    return render_template("index.html", bible=bible, old_testament=OLD_TESTAMENT, new_testament=NEW_TESTAMENT, format_slug=format_slug)
+    return render_template("book.html", bible=bible, old_testament=OLD_TESTAMENT, new_testament=NEW_TESTAMENT, format_slug=format_slug)
 
 
 @app.route("/chapter/<book_slug>/<int:chapter_num>")

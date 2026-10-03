@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Read
+{% endblock %}
+
+{% block main %}
+
+    <div id="main-books">
+        <div class="shell">
+          <p class="eyebrow">King James Version</p>
+          <h1 class="display" style="margin-top:10px">Read</h1>
+          <p class="lede" style="margin:12px 0 26px">Choose a book, then a chapter. Search any word or phrase in the text, and keep private notes on the verses that matter to you.</p>
+
+          <form class="search" role="search" action="#p-05" method="get" style="max-width:540px">
+            <label class="label" for="q-books" style="position:absolute;left:-9999px">Search the Bible</label>
+            <input class="input" id="q-books" name="q" type="search" placeholder="Search a word or phrase — e.g. “still small voice”" readonly>
+            <button class="btn btn--primary" type="submit">Search</button>
+          </form>
+
+          <div class="bookgroup">
+            <h2>Old Testament</h2>
+
+            <div class="bookgrid">
+                {% for book in old_testament %}
+                    <a class="book" href="{{ url_for('chapter', book_slug=format_slug(book), chapter_num=1) }}">
+                        {{ book }}
+                        <span class="count">{{ bible[book]|length }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+
+          <div class="bookgroup">
+            <h2>New Testament</h2>
+
+            <div class="bookgrid">
+                {% for book in new_testament %}
+                    <a class="book" href="{{ url_for('chapter', book_slug=format_slug(book), chapter_num=1) }}">
+                        {{ book }}
+                        <span class="count">{{ bible[book]|length }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+          </div>
+    </div>
+
+{% endblock %}
